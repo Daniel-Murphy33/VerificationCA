@@ -471,25 +471,27 @@ class MurphyDanielTestTask3 {
         reducedPeriods.add(new Period(0, 7));
         Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
         BigDecimal actualValue = rate.calculate(new Period(8, 10));
-        BigDecimal expectedValue = BigDecimal.valueOf(2.50);
+        BigDecimal expectedValue = BigDecimal.valueOf(5);
         assertEquals(expectedValue, actualValue);
     }
 
-    // Test for MANAGEMENT CarParkKind
+    // Test for MANAGEMENT CarParkKind - under 5.00
     @Test
-    public void testManagementRateCalculation() {
-        BigDecimal normalRate = BigDecimal.valueOf(10);
-        BigDecimal reducedRate = BigDecimal.valueOf(5);
+    public void testManagementCalculation() {
+        BigDecimal normalRate = BigDecimal.valueOf(2);
+        BigDecimal reducedRate = BigDecimal.valueOf(1);
         CarParkKind kind = CarParkKind.MANAGEMENT;
         ArrayList<Period> normalPeriods = new ArrayList<>();
         normalPeriods.add(new Period(7, 17));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(0, 7));
         Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
-        BigDecimal actualValue = rate.calculate(new Period(8, 10));
-        BigDecimal expectedValue = BigDecimal.valueOf(5);
-        assertEquals(expectedValue, actualValue);
+        assertThrows(IllegalArgumentException.class, () -> {
+            rate.calculate(new Period(6, 7)); // 1 hour in the reduced period
+        });
     }
+
+
 
     // Test for STUDENT CarParkKind
     @Test
@@ -503,9 +505,16 @@ class MurphyDanielTestTask3 {
         reducedPeriods.add(new Period(0, 7));
         Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
         BigDecimal actualValue = rate.calculate(new Period(8, 10));
-        BigDecimal expectedValue = BigDecimal.valueOf(4.50);
+
+        // Expected value is calculated as follows:
+        // - The full rate for the period is 20
+        // - The amount above 5.50 is 20 - 5.50 = 14.50
+        // - 33% of 14.50 is approximately 4.785
+        BigDecimal expectedValue = BigDecimal.valueOf(15.785);
         assertEquals(expectedValue, actualValue);
     }
+
+
 
     // Test for STAFF CarParkKind
     @Test
@@ -514,13 +523,19 @@ class MurphyDanielTestTask3 {
         BigDecimal reducedRate = BigDecimal.valueOf(5);
         CarParkKind kind = CarParkKind.STAFF;
         ArrayList<Period> normalPeriods = new ArrayList<>();
-        normalPeriods.add(new Period(7, 17));
+        normalPeriods.add(new Period(9, 17));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
-        reducedPeriods.add(new Period(0, 7));
+        reducedPeriods.add(new Period(0, 9));
         Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
-        BigDecimal actualValue = rate.calculate(new Period(8, 18));
+        BigDecimal actualValue = rate.calculate(new Period(9, 17));
         BigDecimal expectedValue = BigDecimal.valueOf(10);
         assertEquals(expectedValue, actualValue);
+
+        // Test for an illegal argument when the calculated amount is over 10
+        assertThrows(IllegalArgumentException.class, () -> {
+            rate.calculate(new Period(0, 24));
+        });
     }
+
 
 }
