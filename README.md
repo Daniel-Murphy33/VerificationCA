@@ -2,6 +2,10 @@
 
 A Java application for calculating parking rates based on different car park kinds and periods of stay.
 
+<b> Author : </b>Daniel Murphy
+<b> Student No. : </b>C00247818
+<b>Lecturer : </b> Chris Meudec
+
 ## Overview
 
 This application calculates the cost of parking for different car park kinds (VISITOR, MANAGEMENT, STUDENT, and STAFF) based on the normal and reduced rates during normal and reduced periods. The application takes into account various rate reductions and limits based on the car park kind.
