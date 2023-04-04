@@ -491,8 +491,6 @@ class MurphyDanielTestTask3 {
         });
     }
 
-
-
     // Test for STUDENT CarParkKind
     @Test
     public void testStudentRateCalculation() {
@@ -514,28 +512,22 @@ class MurphyDanielTestTask3 {
         assertEquals(expectedValue, actualValue);
     }
 
-
-
     // Test for STAFF CarParkKind
     @Test
-    public void testStaffRateCalculation() {
+    public void testStaffRateMaxFeePerDay() {
         BigDecimal normalRate = BigDecimal.valueOf(10);
         BigDecimal reducedRate = BigDecimal.valueOf(5);
         CarParkKind kind = CarParkKind.STAFF;
         ArrayList<Period> normalPeriods = new ArrayList<>();
-        normalPeriods.add(new Period(9, 17));
+        normalPeriods.add(new Period(7, 17));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
-        reducedPeriods.add(new Period(0, 9));
+        reducedPeriods.add(new Period(0, 7));
         Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
-        BigDecimal actualValue = rate.calculate(new Period(9, 17));
-        BigDecimal expectedValue = BigDecimal.valueOf(10);
+        BigDecimal actualValue = rate.calculate(new Period(7, 19)); 
+        BigDecimal expectedValue = BigDecimal.valueOf(10); // The fee should be capped at 10.00
         assertEquals(expectedValue, actualValue);
-
-        // Test for an illegal argument when the calculated amount is over 10
-        assertThrows(IllegalArgumentException.class, () -> {
-            rate.calculate(new Period(0, 24));
-        });
     }
+
 
 
 }
