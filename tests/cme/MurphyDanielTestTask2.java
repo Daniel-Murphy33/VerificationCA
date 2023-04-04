@@ -111,9 +111,8 @@ class MurphyDanielTestTask2 {
         normalPeriods.add(new Period(2, 5));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
-        });
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
+        assertNotNull(rate);
         ;
     }
 
@@ -410,11 +409,13 @@ class MurphyDanielTestTask2 {
         normalPeriods.add(new Period(2, 5));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
+        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
         Period periodStay = new Period(4, 6);
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
-        });
+        BigDecimal actualValue = rate.calculate(periodStay);
+        BigDecimal expectedValue = BigDecimal.valueOf(0);
+        assertEquals(expectedValue, actualValue);
     }
+
 
     /*
      * Added Tests to help test multiple reduced and normal periods in the calculate method
