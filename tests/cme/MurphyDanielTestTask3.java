@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MurphyDanielTestTask2 {
+class MurphyDanielTestTask3 {
 
     public static final int MAX_INT = 200;
 
@@ -111,9 +111,8 @@ class MurphyDanielTestTask2 {
         normalPeriods.add(new Period(2, 5));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
-        });
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
+        assertNotNull(rate);
         ;
     }
 
@@ -410,11 +409,13 @@ class MurphyDanielTestTask2 {
         normalPeriods.add(new Period(2, 5));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
+        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
         Period periodStay = new Period(4, 6);
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
-        });
+        BigDecimal actualValue = rate.calculate(periodStay);
+        BigDecimal expectedValue = BigDecimal.valueOf(0);
+        assertEquals(expectedValue, actualValue);
     }
+
 
     /*
      * Added Tests to help test multiple reduced and normal periods in the calculate method
@@ -453,4 +454,73 @@ class MurphyDanielTestTask2 {
         BigDecimal expectedValue = BigDecimal.valueOf(55);
         assertEquals(expectedValue, actualValue);
     }
+
+    /*
+     * Added Tests for Task 3 - "Red Phase" of the TDD
+     * */
+
+    // Test for VISITOR CarParkKind
+    @Test
+    public void testVisitorRateCalculation() {
+        BigDecimal normalRate = BigDecimal.valueOf(10);
+        BigDecimal reducedRate = BigDecimal.valueOf(5);
+        CarParkKind kind = CarParkKind.VISITOR;
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+        normalPeriods.add(new Period(7, 17));
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        reducedPeriods.add(new Period(0, 7));
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
+        BigDecimal actualValue = rate.calculate(new Period(8, 10));
+        BigDecimal expectedValue = BigDecimal.valueOf(2.50);
+        assertEquals(expectedValue, actualValue);
+    }
+
+    // Test for MANAGEMENT CarParkKind
+    @Test
+    public void testManagementRateCalculation() {
+        BigDecimal normalRate = BigDecimal.valueOf(10);
+        BigDecimal reducedRate = BigDecimal.valueOf(5);
+        CarParkKind kind = CarParkKind.MANAGEMENT;
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+        normalPeriods.add(new Period(7, 17));
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        reducedPeriods.add(new Period(0, 7));
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
+        BigDecimal actualValue = rate.calculate(new Period(8, 10));
+        BigDecimal expectedValue = BigDecimal.valueOf(5);
+        assertEquals(expectedValue, actualValue);
+    }
+
+    // Test for STUDENT CarParkKind
+    @Test
+    public void testStudentRateCalculation() {
+        BigDecimal normalRate = BigDecimal.valueOf(10);
+        BigDecimal reducedRate = BigDecimal.valueOf(5);
+        CarParkKind kind = CarParkKind.STUDENT;
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+        normalPeriods.add(new Period(7, 17));
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        reducedPeriods.add(new Period(0, 7));
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
+        BigDecimal actualValue = rate.calculate(new Period(8, 10));
+        BigDecimal expectedValue = BigDecimal.valueOf(4.50);
+        assertEquals(expectedValue, actualValue);
+    }
+
+    // Test for STAFF CarParkKind
+    @Test
+    public void testStaffRateCalculation() {
+        BigDecimal normalRate = BigDecimal.valueOf(10);
+        BigDecimal reducedRate = BigDecimal.valueOf(5);
+        CarParkKind kind = CarParkKind.STAFF;
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+        normalPeriods.add(new Period(7, 17));
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        reducedPeriods.add(new Period(0, 7));
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
+        BigDecimal actualValue = rate.calculate(new Period(8, 18));
+        BigDecimal expectedValue = BigDecimal.valueOf(10);
+        assertEquals(expectedValue, actualValue);
+    }
+
 }
