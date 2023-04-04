@@ -2,9 +2,10 @@
 
 A Java application for calculating parking rates based on different car park kinds and periods of stay.
 
-<b> Author : </b>Daniel Murphy
-<b> Student No. : </b>C00247818
-<b>Lecturer : </b> Chris Meudec
+-<b> Author : </b>Daniel Murphy
+-<b> Student No. : </b>C00247818
+-<b>Lecturer : </b> Chris Meudec
+
 
 ## Overview
 
