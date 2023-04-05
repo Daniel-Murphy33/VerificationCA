@@ -100,6 +100,9 @@ public class Rate {
         else if (kind == CarParkKind.MANAGEMENT) {
             return rateCalculationStrategy.calculateRate(periodStay, hourlyNormalRate, hourlyReducedRate, normal, reduced);
         }
+        else if (kind == CarParkKind.STUDENT) {
+            return rateCalculationStrategy.calculateRate(periodStay, hourlyNormalRate, hourlyReducedRate, normal, reduced);
+        }
 
         int normalRateHours = periodStay.occurences(normal);
         int reducedRateHours = periodStay.occurences(reduced);
