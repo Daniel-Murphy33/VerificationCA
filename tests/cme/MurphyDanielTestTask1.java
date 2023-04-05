@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,7 +22,7 @@ class MurphyDanielTestTask1 {
         normalPeriods.add(new Period(2, 5));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
-        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
         assertNotNull(rate);
     }
 
@@ -38,7 +37,7 @@ class MurphyDanielTestTask1 {
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
         reducedPeriods.add(new Period(6, 7));
-        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
         assertNotNull(rate);
     }
 
@@ -51,7 +50,7 @@ class MurphyDanielTestTask1 {
         normalPeriods.add(new Period(2, 5));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(6, 7));
-        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
         assertNotNull(rate);
     }
 
@@ -64,7 +63,7 @@ class MurphyDanielTestTask1 {
         normalPeriods.add(new Period(6, 7));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(2, 5));
-        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new VisitorRateCalculationStrategy());
         assertNotNull(rate);
     }
 
@@ -78,7 +77,7 @@ class MurphyDanielTestTask1 {
         normalPeriods.add(new Period(8, 10));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(6, 7));
-        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new VisitorRateCalculationStrategy());
         assertNotNull(rate);
     }
 
@@ -94,7 +93,7 @@ class MurphyDanielTestTask1 {
         reducedPeriods.add(new Period(1, 2));
         reducedPeriods.add(new Period(4, 6));
         reducedPeriods.add(new Period(11, 12));
-        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new VisitorRateCalculationStrategy());
         assertNotNull(rate);
     }
 
@@ -107,7 +106,7 @@ class MurphyDanielTestTask1 {
         normalPeriods.add(new Period(2, 5));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
-        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new VisitorRateCalculationStrategy());
         assertNotNull(rate);
     }
 
@@ -120,7 +119,7 @@ class MurphyDanielTestTask1 {
         normalPeriods.add(new Period(2, 5));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
-        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new VisitorRateCalculationStrategy());
         assertNotNull(rate);
     }
 
@@ -133,7 +132,7 @@ class MurphyDanielTestTask1 {
         normalPeriods.add(new Period(2, 5));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
-        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new VisitorRateCalculationStrategy());
         assertNotNull(rate);
     }
 
@@ -147,7 +146,7 @@ class MurphyDanielTestTask1 {
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
         assertThrows(IllegalArgumentException.class, () -> {
-            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
+            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
         });
     }
 
@@ -161,7 +160,7 @@ class MurphyDanielTestTask1 {
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
         assertThrows(IllegalArgumentException.class, () -> {
-            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
+            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
         });
     }
 
@@ -176,7 +175,7 @@ class MurphyDanielTestTask1 {
         reducedPeriods.add(new Period(1, 2));
         reducedPeriods.add(new Period(5, 9));
         assertThrows(IllegalArgumentException.class, () -> {
-            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
+            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
         });
     }
 
@@ -192,7 +191,7 @@ class MurphyDanielTestTask1 {
         reducedPeriods.add(new Period(7, 10));
         reducedPeriods.add(new Period(8, 12));
         assertThrows(IllegalArgumentException.class, () -> {
-            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
+            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
         });
     }
 
@@ -208,7 +207,7 @@ class MurphyDanielTestTask1 {
         reducedPeriods.add(new Period(7, 10));
         reducedPeriods.add(new Period(8, 12));
         assertThrows(IllegalArgumentException.class, () -> {
-            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
+            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
         });
     }
 
@@ -224,7 +223,7 @@ class MurphyDanielTestTask1 {
         reducedPeriods.add(new Period(1, 5));
         reducedPeriods.add(new Period(9, 11));
         assertThrows(IllegalArgumentException.class, () -> {
-            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
+            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
         });
     }
 
@@ -237,7 +236,7 @@ class MurphyDanielTestTask1 {
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(0, 2));
         assertThrows(IllegalArgumentException.class, () -> {
-            new Rate(null, reducedRate, kind, normalPeriods, reducedPeriods);
+            new Rate(null, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
         });
     }
 
@@ -250,7 +249,7 @@ class MurphyDanielTestTask1 {
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
         assertThrows(IllegalArgumentException.class, () -> {
-            new Rate(normalRate, null, kind, normalPeriods, reducedPeriods);
+            new Rate(normalRate, null, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
         });
     }
 
@@ -267,7 +266,7 @@ class MurphyDanielTestTask1 {
         normalPeriods.add(new Period(2, 5));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
-        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
         BigDecimal actualValue = rate.calculate(new Period(1, 6));
         BigDecimal expectedValue = BigDecimal.valueOf(115);
         assertEquals(expectedValue, actualValue);
@@ -282,7 +281,7 @@ class MurphyDanielTestTask1 {
         normalPeriods.add(new Period(5, 7));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(0, 2));
-        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
         BigDecimal actualValue = rate.calculate(new Period(0, 8));
         BigDecimal expectedValue = BigDecimal.valueOf(500);
         assertEquals(expectedValue, actualValue);
@@ -297,7 +296,7 @@ class MurphyDanielTestTask1 {
         normalPeriods.add(new Period(2, 5));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
-        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new VisitorRateCalculationStrategy());
         assertThrows(IllegalArgumentException.class, () -> {
             rate.calculate(null);
         });
@@ -313,7 +312,7 @@ class MurphyDanielTestTask1 {
         normalPeriods.add(new Period(2, 5));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
-        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new VisitorRateCalculationStrategy());
         BigDecimal actualValue = rate.calculate(new Period(3, 3));
         BigDecimal expectedValue = BigDecimal.valueOf(0);
         assertEquals(expectedValue, actualValue);
@@ -328,7 +327,7 @@ class MurphyDanielTestTask1 {
         normalPeriods.add(new Period(2, 5));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
-        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new VisitorRateCalculationStrategy());
         assertThrows(IllegalArgumentException.class, () -> {
             rate.calculate(new Period(5, 3));
         });
@@ -343,7 +342,7 @@ class MurphyDanielTestTask1 {
         normalPeriods.add(new Period(5, 7));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(0, 2));
-        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new VisitorRateCalculationStrategy());
         BigDecimal actualValue = rate.calculate(new Period(0, 24));
         BigDecimal expectedValue = BigDecimal.valueOf(30);
         assertEquals(expectedValue, actualValue);
@@ -358,7 +357,7 @@ class MurphyDanielTestTask1 {
         normalPeriods.add(new Period(3, 7));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(0, 2));
-        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
         BigDecimal actualValue = rate.calculate(new Period(3, 4));
         BigDecimal expectedValue = BigDecimal.valueOf(0);
         assertEquals(expectedValue, actualValue);
@@ -374,7 +373,7 @@ class MurphyDanielTestTask1 {
         normalPeriods.add(new Period(2, 5));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
-        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods);
+        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
         BigDecimal actualValue = rate.calculate(new Period(4, 6));
         BigDecimal expectedValue = BigDecimal.valueOf(0);
         assertEquals(expectedValue, actualValue);

@@ -10,9 +10,11 @@ public class Rate {
     private BigDecimal hourlyReducedRate;
     private ArrayList<Period> reduced = new ArrayList<>();
     private ArrayList<Period> normal = new ArrayList<>();
+    private RateCalculationStrategy rateCalculationStrategy;
+
 
     public Rate(BigDecimal normalRate, BigDecimal reducedRate, CarParkKind kind, ArrayList<Period> reducedPeriods
-            , ArrayList<Period> normalPeriods) {
+            , ArrayList<Period> normalPeriods, RateCalculationStrategy rateCalculationStrategy) {
         if (reducedPeriods == null || normalPeriods == null) {
             throw new IllegalArgumentException("periods cannot be null");
         }
@@ -37,6 +39,8 @@ public class Rate {
         this.hourlyReducedRate = reducedRate;
         this.reduced = reducedPeriods;
         this.normal = normalPeriods;
+
+        this.rateCalculationStrategy = rateCalculationStrategy;
     }
 
     /**
@@ -90,10 +94,15 @@ public class Rate {
         return isValid;
     }
     public BigDecimal calculate(Period periodStay) {
+        if (kind == CarParkKind.VISITOR) {
+            return rateCalculationStrategy.calculateRate(periodStay, hourlyNormalRate, hourlyReducedRate, normal, reduced);
+        }
+
         int normalRateHours = periodStay.occurences(normal);
         int reducedRateHours = periodStay.occurences(reduced);
         return (this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))).add(
                 this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
     }
+
 
 }
