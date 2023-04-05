@@ -126,7 +126,7 @@ class MurphyDanielTestTask3 {
         normalPeriods.add(new Period(2, 5));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
-        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new VisitorRateCalculationStrategy());
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new StaffRateCalculationStrategy());
         assertNotNull(rate);
     }
 
@@ -154,7 +154,7 @@ class MurphyDanielTestTask3 {
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
         assertThrows(IllegalArgumentException.class, () -> {
-            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
+            new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new StaffRateCalculationStrategy());
         });
     }
 
@@ -244,7 +244,7 @@ class MurphyDanielTestTask3 {
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(0, 2));
         assertThrows(IllegalArgumentException.class, () -> {
-            new Rate(null, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
+            new Rate(null, reducedRate, kind, normalPeriods, reducedPeriods, new StaffRateCalculationStrategy());
         });
     }
 
@@ -335,9 +335,9 @@ class MurphyDanielTestTask3 {
         normalPeriods.add(new Period(5, 7));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(0, 2));
-        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new VisitorRateCalculationStrategy());
+        Rate rate = new Rate(normalRate, reducedRate, kind, normalPeriods, reducedPeriods, new StaffRateCalculationStrategy());
         BigDecimal actualValue = rate.calculate(new Period(0, 8));
-        BigDecimal expectedValue = BigDecimal.valueOf(600);
+        BigDecimal expectedValue = BigDecimal.valueOf(10); // max value for staff is 10
         assertEquals(expectedValue, actualValue);
     }
 
@@ -350,7 +350,7 @@ class MurphyDanielTestTask3 {
         normalPeriods.add(new Period(2, 5));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
-        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new VisitorRateCalculationStrategy());
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new StaffRateCalculationStrategy());
         assertThrows(NullPointerException.class, () -> {
             rate.calculate(null);
         });
@@ -453,9 +453,9 @@ class MurphyDanielTestTask3 {
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(1, 2));
         reducedPeriods.add(new Period(5, 7));
-        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new VisitorRateCalculationStrategy());
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new StaffRateCalculationStrategy());
         BigDecimal actualValue = rate.calculate(new Period(0, 8));
-        BigDecimal expectedValue = BigDecimal.valueOf(55);
+        BigDecimal expectedValue = BigDecimal.valueOf(10); //max value for staff is 10
         assertEquals(expectedValue, actualValue);
     }
 
@@ -523,7 +523,7 @@ class MurphyDanielTestTask3 {
 
     // Test for STAFF CarParkKind
     @Test
-    public void testStaffRateMaxFeePerDay() {
+    public void testStaffRateCalculation() {
         BigDecimal normalRate = BigDecimal.valueOf(10);
         BigDecimal reducedRate = BigDecimal.valueOf(5);
         CarParkKind kind = CarParkKind.STAFF;
@@ -531,12 +531,12 @@ class MurphyDanielTestTask3 {
         normalPeriods.add(new Period(7, 17));
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(0, 7));
-        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new VisitorRateCalculationStrategy());
-        BigDecimal actualValue = rate.calculate(new Period(7, 19)); 
-        BigDecimal expectedValue = BigDecimal.valueOf(10); // The fee should be capped at 10.00
+        Rate rate = new Rate(normalRate, reducedRate, kind, reducedPeriods, normalPeriods, new StaffRateCalculationStrategy());
+        BigDecimal actualValue = rate.calculate(new Period(8, 20));
+
+        // Expected value is 10 since it's the maximum payable amount
+        BigDecimal expectedValue = BigDecimal.valueOf(10);
         assertEquals(expectedValue, actualValue);
     }
-
-
 
 }
